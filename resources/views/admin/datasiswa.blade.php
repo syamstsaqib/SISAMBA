@@ -98,7 +98,7 @@
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="{{asset('storage/foto_siswa/'.$dt->foto)}}" alt="Profile" id="foto" class="rounded-circle">
+            <img src="{{asset('storage/foto_siswa/'.$dt->foto)}}" alt="Profile" id="foto" class="rounded-circle" style="object-fit: cover" height="150" width="150">
             <h2 id="nama"></h2>
             <h5>Siswa</h5>
             

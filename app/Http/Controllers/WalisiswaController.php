@@ -155,22 +155,32 @@ class WalisiswaController extends Controller
      */
     public function update(Request $request, $siswa)
     {
-        
-        Siswa::with('kelas', 'user')->where($siswa)->update([
-            'foto' => $request->file('foto')->getClientOriginalName(),
+        $siswa = Siswa::find($siswa);
+        // cek apakah ada file foto
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto')->getClientOriginalName();
+            $request->file('foto')->storeAs('public/foto_siswa/', $request->file('foto')->getClientOriginalName());
+        } else {
+            $file = $siswa->foto;
+        }
+        Siswa::with('kelas', 'user')->where("id", $siswa->id)->update([
+            'foto' => $file,
             'nisn' => $request->nisn,
-            'nama' => $request->nama,
             'tempat_lahir' => $request->tempat_lahir,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
-            'kelas' => $request->kelas_id,
+            'kelas_id' => $request->kelas_id,
             'nama_wali' => $request->nama_wali,
-            'email' => $request->email,
         ]);
-     $request->file('foto')->storeAs('public/foto_siswa/', $request->file('foto')->getClientOriginalName());
-     return $request;
-            return redirect('/admin/datasiswa')->with('success', 'Data ' . $request->nama . ' Berhasil Diubah');
+
+        User::where('id', $siswa->user_id)->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'nomor_induk' => $request->nisn,
+            'password' => $request->password ? bcrypt($request->password) : $siswa->user->password,
+        ]);
+        return redirect('/admin/datasiswa')->with('success', 'Data ' . $request->nama . ' Berhasil Diubah');
     }
 
     /**
@@ -182,12 +192,7 @@ class WalisiswaController extends Controller
     public function destroy($siswa)
     {
         $siswakelas = Siswa::find($siswa);
-        $jml = $siswakelas->jumlah - 1;
-        $siswakelas->kelas->update([
-            'jumlah' => $jml
-        ]);
-        User::destroy($siswakelas->id);
-        Siswa::destroy($siswakelas->id);
+        User::destroy($siswakelas->user_id);
         $siswakelas->delete();
         return redirect('/admin/datasiswa')->with('success', 'Data berhasil dihapus');
     }
