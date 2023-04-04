@@ -24,11 +24,13 @@
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Edit Guru</h5>
-
-                <div class="text-left">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-secondary">Reset</button>
-                </div>
+              {!! Form::model($dtguru,['url' => '/admin/dataguru/'.$dtguru['id'], 'method'=>'put','files' => true, 'class'=>'row g-3']) !!}
+              @include('layouts.formtambahguru')
+               <div class="text-left">
+                   <button type="submit" class="btn btn-primary">Submit</button>
+                   <button type="reset" class="btn btn-secondary">Reset</button>
+               </div>
+             {!! Form::close() !!}
             </div>
           </div>
       </div>

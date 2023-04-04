@@ -25,7 +25,7 @@ class GuruController extends Controller
      */
     public function ShowDsGuru()
     {
-        return view('guru.home',[
+        return view('guru.home', [
             'dtsiswa' => Siswa::all()->count(),
             'dtguru' => Guru::all()->count(),
             // 'dtkelas' => Kelas_jurusan::all()->count(),
@@ -33,25 +33,27 @@ class GuruController extends Controller
         ]);
     }
 
-    public function profile(){
+    public function profile()
+    {
         return view('guru.profile');
     }
 
-    public function profile_edit(Request $request, $id){
+    public function profile_edit(Request $request, $id)
+    {
         $olddata = Guru::find($id);
         DB::beginTransaction();
         try {
             if ($request->hasFile('foto')) {
-                if($olddata->foto != 'foto_profil_guru/defaultprofile.jpg'){
+                if ($olddata->foto != 'foto_profil_guru/defaultprofile.jpg') {
                     Storage::delete($olddata->foto);
                 }
-                
+
                 $olddata->update([
                     'foto' => $request->file('foto')->store('foto_profil_guru'),
                 ]);
             }
             $olddata->user->update([
-                'name'=>$request->name
+                'name' => $request->name
             ]);
             $olddata->update([
                 'tempat_lahir' => $request->tempat_lahir,
@@ -88,8 +90,9 @@ class GuruController extends Controller
     //     return redirect('/guru/profile')->with('success','Password Berhasil diubah');
     // }
 
-    public function showsiswa(){
-        return view('guru.datasiswa',[
+    public function showsiswa()
+    {
+        return view('guru.datasiswa', [
             // 'dtsiswa' => SiswaKelas::with('siswa','kelas_jurusan')->latest()->get(),
         ]);
     }
@@ -118,7 +121,7 @@ class GuruController extends Controller
         $data = Guru::with('user')->latest()->get();
         return view('admin.dataguru', compact('data'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -127,9 +130,9 @@ class GuruController extends Controller
      */
     public function create()
     {
-        
 
-        return view('admin.guru.tambahguru',[
+
+        return view('admin.guru.tambahguru', [
             'nomor_induk' => User::pluck('nomor_induk', 'id')
         ]);
     }
@@ -154,14 +157,14 @@ class GuruController extends Controller
             'user_id' => $user->id,
             'foto' => $request->file('foto')->getClientOriginalName(),
             'tempat_lahir' => $request->tempat_lahir,
-            'nip' =>$request->nip,
+            'nip' => $request->nip,
             'tgl_lahir' => $request->tgl_lahir,
-            'jenis_kelamin'=> $request->jenis_kelamin,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
         ]);
         $request->file('foto')->storeAs('public/foto_guru/', $request->file('foto')->getClientOriginalName());
-            return redirect('/admin/dataguru')->with('success','Data Guru Berhasil Ditambah');
-       }
+        return redirect('/admin/dataguru')->with('success', 'Data Guru Berhasil Ditambah');
+    }
 
     /**
      * Display the specified resource.
@@ -171,8 +174,8 @@ class GuruController extends Controller
      */
     public function show($guru)
     {
-        return view('admin.guru.detailguru',[
-            'guru' => Guru::with('kelas_jurusan','gurumapel')->find($guru)
+        return view('admin.guru.detailguru', [
+            'guru' => Guru::with('kelas_jurusan', 'gurumapel')->find($guru)
         ]);
     }
 
@@ -187,7 +190,8 @@ class GuruController extends Controller
         $dtg = Guru::find($guru);
         $dtguru = [
             'id' => $dtg->id,
-            'name' => $dtg->user->name,
+            'nip' => $dtg->nip,
+            'nama' => $dtg->user->nama,
             'tempat_lahir' => $dtg->tempat_lahir,
             'tgl_lahir' => $dtg->tgl_lahir,
             'jenis_kelamin' => $dtg->jenis_kelamin,
@@ -195,7 +199,7 @@ class GuruController extends Controller
             'mapel_id' => $dtg->mapel_id,
             'email' => $dtg->user->email
         ];
-        return view('admin.guru.editguru',[
+        return view('admin.guru.editguru', [
             'nip' => $dtg->nip,
             'dtguru' => $dtguru
         ]);
@@ -210,42 +214,29 @@ class GuruController extends Controller
      */
     public function update(Request $request, $guru)
     {
-        DB::beginTransaction();
-        try{
-            $dtOld = Guru::find($guru);
-
-            $validateGuru = $request->validate([
-                'nip' => 'required',
-                'tgl_lahir' => 'required',
-                'tempat_lahir'=>'required',
-                'foto' => 'image|file',
-                'jenis_kelamin' => 'required',
-                'alamat' => 'required',
-            ]);
-            
-            $validateUser = $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-            ]);        
-                $validateUser['password'] = (($request->password)?Hash::make($request->password):$dtOld->user->password);
-
-            if ($request->hasFile('image')) {
-                if($dtOld->foto != 'foto_profil_guru/defaultprofile.jpg'){
-                    Storage::delete($dtOld->foto);
-                }
-                $validateGuru['foto'] = $request->file('image')->store('foto_profil_guru');
-            }
-            
-            $dtOld->user->update($validateUser);
-            $dtOld->update($validateGuru);
-            
-            
-            DB::commit();
-            return redirect('/admin/dataguru')->with('success','Data Berhasil diedit');
-        }catch(\Exception $e){
-            DB::rollBack();
-            return back()->withErrors($e)->withInput();
+        $dtOld = Guru::find($guru);
+        if ($request->file('foto') != null) {
+            $request->file('foto')->storeAs('public/foto_guru/', $request->file('foto')->getClientOriginalName());
+            $file = $request->file('foto')->getClientOriginalName();
+        } else {
+            $file = $dtOld->foto;
         }
+        $dtOld->update([
+            'foto' => $file,
+            'tempat_lahir' => $request->tempat_lahir,
+            'nip' => $request->nip,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+        ]);
+        $dtOld->user->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'nomor_induk' => $request->nip,
+            'password' => $request->password ? bcrypt($request->password) : $dtOld->user->password,
+        ]);
+
+        return redirect('/admin/dataguru')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -256,16 +247,16 @@ class GuruController extends Controller
      */
     public function destroy($guru)
     {
-        $dtguru = Guru::with('user','kelas')->find($guru);
-        Guru::where('id',$guru)->delete();
+        $dtguru = Guru::with('user', 'kelas')->find($guru);
+        Guru::where('id', $guru)->delete();
         if ($dtguru->foto != 'foto_profil_guru/defaultprofile.jpg') {
             Storage::delete($dtguru->foto);
         }
 
         $dtguru->user->delete();
-        Absensi::where('guru_id',$guru)->delete();
+        Absensi::where('guru_id', $guru)->delete();
         $dtguru->delete();
 
-        return redirect('/admin/dataguru')->with('success','Data Berhasil Dihapus');
+        return redirect('/admin/dataguru')->with('success', 'Data Berhasil Dihapus');
     }
 }

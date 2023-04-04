@@ -24,13 +24,13 @@
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Edit siswa</h5>
-              {!! Form::model($dtsiswa,['url' => '/admin/datasiswa/'.$dtsiswa['id'], 'method'=>'put','files' => true, 'class'=>'row g-3','novalidate']) !!}
+              {!! Form::model($dtsiswa,['url' => '/admin/datasiswa/'.$dtsiswa['id'], 'method'=>'put','files' => true, 'class'=>'row g-3']) !!}
                @include('layouts.formtambahsiswa')
                 <div class="text-left">
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
-                {!! Form::close() !!}
+              {!! Form::close() !!}
             </div>
           </div>
       </div>
