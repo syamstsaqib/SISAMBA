@@ -31,6 +31,8 @@ class RedirectIfAuthenticated
                     return redirect('/guru/dashboard');
                 } elseif ($role == 'WaliSiswa') {
                     return redirect('/walisiswa/dashboard');
+                } elseif ($role == 'SuperAdmin') {
+                    return redirect('/superadmin/dashboard');
                 }
             }
         }

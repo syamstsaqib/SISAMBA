@@ -24,25 +24,33 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         User::create([
-            'nama'=>'Syams Tsaqib',
+            'nama' => 'Super Admin',
+            'email' => 'superadmin@gmail.com',
+            'nomor_induk' => 11111111,
+            'password' => Hash::make('12345'),
+            'role' => 'SuperAdmin'
+        ]);
+
+        User::create([
+            'nama' => 'Syams Tsaqib',
             'email' => 'admin@gmail.com',
-            'nomor_induk'=>10191084,
-            'password'=>Hash::make('12345'),
-            'role'=>'Admin'
+            'nomor_induk' => 10191084,
+            'password' => Hash::make('12345'),
+            'role' => 'Admin'
         ]);
         User::create([
-            'nama'=>'Guru',
+            'nama' => 'Guru',
             'email' => 'ridha@gmail.com',
-            'nomor_induk'=>'10181069',
-            'password'=>Hash::make('12345'),
-            'role'=>'Guru'
+            'nomor_induk' => '10181069',
+            'password' => Hash::make('12345'),
+            'role' => 'Guru'
         ]);
         User::create([
-            'nama'=>'Rhoy',
+            'nama' => 'Rhoy',
             'email' => 'rhoy@gmail.com',
-            'nomor_induk'=>'76131',
-            'password'=>Hash::make('12345'),
-            'role'=>'WaliSiswa'
+            'nomor_induk' => '76131',
+            'password' => Hash::make('12345'),
+            'role' => 'WaliSiswa'
         ]);
         // User::create([
         //     'name'=>'Guru',
@@ -62,7 +70,7 @@ class DatabaseSeeder extends Seeder
         //     'password'=>Hash::make('12345'),
         //     'role'=>'WaliSiswa'
         // ]);
-        
+
         // User::create([
         //     'name'=>'Guru2',
         //     'email' => 'guru2@gmail.com',

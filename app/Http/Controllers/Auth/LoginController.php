@@ -40,36 +40,37 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request){
-    
-        $credential=$request->validate([
-            'nomor_induk'=>'required',
-            'password'=>'required'
+    public function login(Request $request)
+    {
+
+        $credential = $request->validate([
+            'nomor_induk' => 'required',
+            'password' => 'required'
         ]);
         if (Auth::attempt($credential)) {
             if (Auth()->user()->role == 'Admin') {
                 $request->session()->regenerate();
                 return redirect()->intended('admin/dashboard');
-            }
-            elseif (Auth()->user()->role == 'Guru') {
+            } elseif (Auth()->user()->role == 'Guru') {
                 $request->session()->regenerate();
                 return redirect()->intended('guru/dashboard');
-            }
-            elseif (Auth()->user()->role == 'WaliSiswa') {
+            } elseif (Auth()->user()->role == 'WaliSiswa') {
                 $request->session()->regenerate();
                 return redirect()->intended('walisiswa/dashboard');
+            } elseif (Auth()->user()->role == 'SuperAdmin') {
+                $request->session()->regenerate();
+                return redirect()->intended('superadmin/dashboard');
             }
-        }
-        else{
-            return back()->withErrors('gagal','NISN/NIP atau password anda salah');
+        } else {
+            return back()->withErrors('gagal', 'NISN/NIP atau password anda salah');
         }
     }
 
     public function logout(Request $request)
     {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

@@ -145,10 +145,19 @@
         </ul>
       </li><!-- End Components Nav --> --}}
     </ul>
-
-    @elseif(auth()->user()->role == 'Admin')
+    @elseif(auth()->user()->role == 'Admin' || auth()->user()->role == 'SuperAdmin')
     <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-heading">Menu Admin</li>
+      @if(auth()->user()->role == 'SuperAdmin')
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/superadmin/dataadmin">
+            <i class="bi bi-person"></i>
+            <span>Data Admin</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+      </ul>
+      @endif
       <li class="nav-item">
         <a class="nav-link" href="/admin/dashboard">
           <i class="bi bi-grid"></i>

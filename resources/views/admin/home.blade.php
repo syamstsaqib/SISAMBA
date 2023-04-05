@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card info-card sales-card">
-                        <div class="filter">
+                        {{-- <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                 <li class="dropdown-header text-start">
@@ -46,7 +46,7 @@
                                 <li><a class="dropdown-item" href="#">This Month</a></li>
                                 <li><a class="dropdown-item" href="#">This Year</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <h5 class="card-title">Data siswa <span>| Today</span></h5>
           
@@ -57,7 +57,7 @@
                               </div>
                               <div class="ps-3">
                                 <h6>{{ $dtsiswa }}</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> --}}
           
                               </div>
                             </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card info-card sales-card">
-                        <div class="filter">
+                        {{-- <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                 <li class="dropdown-header text-start">
@@ -77,7 +77,7 @@
                                 <li><a class="dropdown-item" href="#">This Month</a></li>
                                 <li><a class="dropdown-item" href="#">This Year</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <h5 class="card-title">Data Guru <span>| Today</span></h5>
           
@@ -88,7 +88,7 @@
                             </div>
                               <div class="ps-3">
                                 <h6>{{ $dtguru }}</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> --}}
           
                               </div>
                             </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card info-card sales-card">
-                        <div class="filter">
+                        {{-- <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                 <li class="dropdown-header text-start">
@@ -108,7 +108,7 @@
                                 <li><a class="dropdown-item" href="#">This Month</a></li>
                                 <li><a class="dropdown-item" href="#">This Year</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <h5 class="card-title">Data Kelas <span>| Today</span></h5>
           
@@ -119,7 +119,7 @@
                               </div>
                               <div class="ps-3">
                                 <h6>{{ $dtkelas }}</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> --}}
           
                               </div>
                             </div>
@@ -128,7 +128,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card info-card sales-card">
-                        <div class="filter">
+                        {{-- <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                 <li class="dropdown-header text-start">
@@ -139,7 +139,7 @@
                                 <li><a class="dropdown-item" href="#">This Month</a></li>
                                 <li><a class="dropdown-item" href="#">This Year</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <h5 class="card-title">Data Mapel <span>| Today</span></h5>
           
@@ -150,7 +150,7 @@
                             </div>
                               <div class="ps-3">
                                 <h6>{{ $dtmapel }}</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> --}}
           
                               </div>
                             </div>
