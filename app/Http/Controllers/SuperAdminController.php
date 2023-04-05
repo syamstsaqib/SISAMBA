@@ -66,7 +66,16 @@ class SuperAdminController extends Controller
     public function edit($id)
     {
         $admin = User::find($id);
-        return $admin;
+        $dtadmin = [
+            'id' => $admin->id,
+            'nip' => $admin->nomor_induk,
+            'nama' => $admin->nama,
+            'email' => $admin->email,
+        ];
+        return view('super-admin.editadmin', [
+            'nip' => $admin->nomor_induk,
+            'dtadmin' => $dtadmin
+        ]);
     }
 
     /**
@@ -78,7 +87,14 @@ class SuperAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $admin = User::find($id);
+        $admin->update([
+            'nomor_induk' => $request->nip,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => $request->password ? bcrypt($request->password) : $admin->password,
+        ]);
+        return redirect('/superadmin/dataadmin')->with('success', 'Data Admin Berhasil Diubah');
     }
 
     /**
