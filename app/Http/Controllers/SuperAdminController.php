@@ -105,6 +105,8 @@ class SuperAdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $admin = User::find($id);
+        $admin->delete();
+        return redirect('/superadmin/dataadmin')->with('success', 'Data Admin Berhasil Dihapus');
     }
 }

@@ -58,7 +58,7 @@
                         <button class="btn btn-sm btn-secondary detail_admin" data-id ="" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Admin" ><i class="fas fa-info-circle"></i></button>
                       </div>
                       <a href="/superadmin/dataadmin/{{$adm->id}}/edit" class="text-white btn btn-sm btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Admin"><i class="fas fa-user-edit"></i></a>
-                      {!! Form::open(['url' => '/admin/dataadmin/'.$adm->id, 'method' => 'delete']) !!}
+                      {!! Form::open(['url' => '/superadmin/dataadmin/'.$adm->id, 'method' => 'delete']) !!}
                       <button type="button" class="btn btn-sm btn-danger hapus_admin" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Admin"><i class="fas fa-trash-alt"></i></button>
                       {!! Form::close() !!}
                     </div>
