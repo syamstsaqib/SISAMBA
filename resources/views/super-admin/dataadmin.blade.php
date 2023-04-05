@@ -2,7 +2,7 @@
 @section('style')
   @include('layouts.style')
   <style>
-    .foto-siswa{
+    .foto-admin{
       width: 100px;
       height: 100px;
     }
@@ -40,37 +40,32 @@
             <table class="table datatable">
               <thead>
                 <tr>
-                  <th scope="col">Foto</th>
                   <th scope="col">NISN</th>
                   <th scope="col">Nama</th>
-                  <th scope="col">Kelas</th>
+                  <th scope="col">Email</th>
                   <th scope="col" class="text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                {{-- @foreach($data as $dt)
+                @foreach ($admin as $adm)
                 <tr>
-                  <th scope="row">
-                    <img src="{{asset('storage/foto_siswa/'.$dt->foto)}}" alt="" class="img-fluid foto-siswa">  
-                  </th>
-                  <td>{{$dt->nisn}}</td>
-                  <td>{{$dt->user->nama ?? 'ini nama'}}</td>
-                  <td>{{$dt->kelas->tingkat_kelas ?? ''}}</td> 
-                  <!-- pakai ?? dan '' kalau panggil relasi dan tidak ketemu -->
+                  <td>{{$adm->nomor_induk}}</td>
+                  <td>{{$adm->nama}}</td>
+                  <td>{{$adm->email}}</td>
                   <td>
                     <div class="d-flex justify-content-evenly">
-                      <div data-bs-toggle="modal" data-bs-target="#detailsiswa-{{$dt->id}}">
-                        <button class="btn btn-sm btn-secondary detail_siswa" data-id ="" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Siswa" ><i class="fas fa-info-circle"></i></button>
-
+                      <div data-bs-toggle="modal" data-bs-target="#detailadmin-{{$adm->id}}">
+                        <button class="btn btn-sm btn-secondary detail_admin" data-id ="" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Admin" ><i class="fas fa-info-circle"></i></button>
                       </div>
-                      <a href="/admin/datasiswa/{{$dt->id}}/edit" class="text-white btn btn-sm btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Siswa"><i class="fas fa-user-edit"></i></a>
-                      {!! Form::open(['url' => '/admin/datasiswa/'.$dt->id, 'method' => 'delete']) !!}
-                      <button type="button" class="btn btn-sm btn-danger hapus_siswa" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Siswa"><i class="fas fa-trash-alt"></i></button>
+                      <a href="/superadmin/dataadmin/{{$adm->id}}/edit" class="text-white btn btn-sm btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Admin"><i class="fas fa-user-edit"></i></a>
+                      {!! Form::open(['url' => '/admin/dataadmin/'.$adm->id, 'method' => 'delete']) !!}
+                      <button type="button" class="btn btn-sm btn-danger hapus_admin" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Admin"><i class="fas fa-trash-alt"></i></button>
                       {!! Form::close() !!}
                     </div>
                   </td>
                 </tr>
-                @endforeach --}}
+                @endforeach
+                
               </tbody>
             </table>
           </div>
@@ -81,23 +76,21 @@
 </main>
 
 <!-- Modal -->
-{{-- @foreach($data as $dt)
+@foreach($admin as $adm)
 <section class="profile">
-  <div class="modal fade" id="detailsiswa-{{$dt->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="detailadmin-{{$adm->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Detail siswa</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Detail admin</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-              <img src="{{asset('storage/foto_siswa/'.$dt->foto)}}" alt="Profile" id="foto" class="rounded-circle" style="object-fit: cover" height="150" width="150">
+              {{-- <img src="{{asset('storage/foto_admin/'.$adm->foto)}}" alt="Profile" id="foto" class="rounded-circle" style="object-fit: cover" height="150" width="150"> --}}
               <h2 id="nama"></h2>
-              <h5>Siswa</h5>
-              
+              <h5>Admin</h5>
             </div>
           </div>
           <div class="card">
@@ -108,41 +101,16 @@
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">Profile Details</h5>
                   <div class="row">
-                    <div class="col-lg-4 col-md-5 label ">NISN</div>
-                    <div class="col-lg-8 col-md-7" id="nisn">{{$dt->nisn}}</div>
+                    <div class="col-lg-4 col-md-5 label ">Nomor Induk</div>
+                    <div class="col-lg-8 col-md-7" id="nisn">{{$adm->nomor_induk}}</div>
                   </div>
                   <div class="row">
                     <div class="col-lg-4 col-md-5 label ">Nama Lengkap</div>
-                    <div class="col-lg-8 col-md-7" id="nama">{{$dt->user->nama ?? ''}}</div>
+                    <div class="col-lg-8 col-md-7" id="nama">{{$adm->nama}}</div>
                   </div>
-
-                  <div class="row">
-                    <div class="col-lg-4 col-md-5 label">Kelas</div>
-                    <div class="col-lg-8 col-md-7" id="kelas">{{$dt->kelas->tingkat_kelas ?? ''}}</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-4 col-md-5 label">TTL</div>
-                    <div class="col-lg-8 col-md-7" id="TTL">{{$dt->tempat_lahir}}, {{$dt->tgl_lahir}}</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-4 col-md-5 label">Jenis Kelamin</div>
-                    <div class="col-lg-8 col-md-7" id="J_kelamin">{{$dt->jenis_kelamin}}</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-4 col-md-5 label">Alamat</div>
-                    <div class="col-lg-8 col-md-7" id="alamat">{{$dt->alamat}}</div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4 col-md-5 label">Nama Wali</div>
-                    <div class="col-lg-8 col-md-7" id="nama_wali">{{$dt->nama_wali}}</div>
-                  </div>
-
                   <div class="row">
                     <div class="col-lg-4 col-md-5 label">Email</div>
-                    <div class="col-lg-8 col-md-7" id="email">{{$dt->user->email ?? ''}}</div>
+                    <div class="col-lg-8 col-md-7" id="email">{{$adm->email}}</div>
                   </div>
                 </div>
               </div>
@@ -157,11 +125,11 @@
     </div>
   </div>
 </section>
-@endforeach --}}
+@endforeach
 
 @endsection
 
 @section('script')
     @include('layouts.script')
-    <script src="{{  asset('js/datasiswa.js') }}"></script>
+    <script src="{{  asset('js/dataadmin.js') }}"></script>
 @endsection

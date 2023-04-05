@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SuperAdminController extends Controller
@@ -13,7 +14,8 @@ class SuperAdminController extends Controller
      */
     public function index()
     {
-        return view('super-admin.dataadmin');
+        $admin = User::where('role', 'Admin')->get();
+        return view('super-admin.dataadmin', compact('admin'));
     }
 
     /**
@@ -23,7 +25,7 @@ class SuperAdminController extends Controller
      */
     public function create()
     {
-        return "create";
+        return view('super-admin.tambahadmin');
     }
 
     /**
@@ -34,7 +36,14 @@ class SuperAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'nomor_induk' => $request->nip,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => "Admin",
+        ]);
+        return redirect('/superadmin/dataadmin')->with('success', 'Data Admin Berhasil Ditambah');
     }
 
     /**
@@ -56,7 +65,8 @@ class SuperAdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admin = User::find($id);
+        return $admin;
     }
 
     /**
