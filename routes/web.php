@@ -39,7 +39,10 @@ Route::group(['middleware' => ['auth', 'roles:Admin|SuperAdmin'], 'prefix' => 'a
     Route::get('/dashboard', [AdminController::class, 'index']);
     Route::resource('/datasiswa', WalisiswaController::class);
     Route::resource('/dataguru', GuruController::class);
-    Route::resource('/datakelas', KelasController::class);
+
+    Route::get('/datakelas', [KelasController::class, 'index']);
+    Route::put('/datakelas/update/{kelas}', [KelasController::class, 'update']);
+
     Route::resource('/datamapel', MapelController::class);
 
     Route::get('/walikelas/{id}', [KelasController::class, 'show']);

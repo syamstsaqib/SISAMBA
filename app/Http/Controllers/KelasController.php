@@ -17,6 +17,7 @@ class KelasController extends Controller
     {
         return view('admin.datakelas', [
             'dtkelas' => Kelas::all(),
+            'dtguru' => Guru::all(),
         ]);
     }
 
@@ -45,7 +46,7 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         Kelas::create([
-            'kelas' => $request->kelas,
+            'kelas' => $request->kelas + 1,
             'kode_kelas' => $request->kode_kelas,
             'walikelas' => $request->walikelas,
         ]);
@@ -101,9 +102,12 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $kelas)
+    public function update(Request $request, Kelas $kelas)
     {
-        Kelas::find($kelas)->update($request->all());
+        $kelas->update([
+            'kode_kelas' => $request->kode_kelas,
+            'walikelas' => $request->walikelas,
+        ]);
         return redirect('/admin/datakelas')->with('success', 'Wali kelas Berhasil diedit');
     }
 

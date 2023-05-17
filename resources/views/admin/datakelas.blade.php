@@ -53,9 +53,9 @@
                   <td>{{ $dt->dataWalikelas->user->nama }}</td>
                   <td align="center">
                     <div class="d-flex justify-content-lg-evenly">
-                      <button kelas-id="" data-bs-toggle="modal" data-bs-target="#editpengampu" class="btn btn-sm btn-warning text-white edit-wali"><i class="fas fa-user-edit"></i></button>
+                      <button kelas-id="" data-bs-toggle="modal" data-bs-target="#editpengampu-{{ $dt->id }}" class="btn btn-sm btn-warning text-white edit-wali"><i class="fas fa-user-edit"></i></button>
                       {{-- <a href="/admin/dataguru/{{$dt->id}}/edit" class="text-white btn btn-sm btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Guru"></a> --}}
-                      {!! Form::open(['url' => '/admin/dataguru/'.$dt->id , 'method' => 'delete']) !!}
+                      {!! Form::open(['url' => '/admin/datakelas/'.$dt->id , 'method' => 'delete']) !!}
                       <button type="button" class="btn btn-sm btn-danger hapus_guru" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Guru"><i class="fas fa-trash-alt"></i></button>
                       {!! Form::close() !!}
                     </div>
@@ -71,19 +71,47 @@
   </section>
 </main>
 <!-- Modal -->
-<div class="modal fade" id="editpengampu" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($dtkelas as $dt)
+<div class="modal fade" id="editpengampu-{{ $dt->id }}" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" >
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Walikelas</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Kelas</h5>
         <button type="button" class="btn-close tutup-form" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div id="form-wali">
-        
-      </div>
+      <div class="modal-body" id="form-wali">
+        <form action="/admin/datakelas/update/{{ $dt->id }}" method="post" id="form-edit">
+          @csrf
+          @method('put')
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group mb-3">
+                <label for="kode_kelas">Kode Kelas</label>
+                <input type="text" name="kode_kelas" id="kode_kelas" class="form-control" value="{{ $dt->kode_kelas }}">
+              </div>
+              <div class="form-group mb-3">
+                <label for="wali_kelas">Wali Kelas</label>
+                <select name="walikelas" id="walikelas" class="form-control">
+                  <option value="">-- Pilih Wali Kelas --</option>
+                  @foreach($dtguru as $guru)
+                  <option value="{{ $guru->id }}" {{ $dt->dataWalikelas->id == $guru->id ? 'selected' : '' }}>{{ $guru->user->nama }}</option>
+                  @endforeach
+                </select>
+              </div>
+              {{-- button kirim --}}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary tutup-form" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary" id="kirim-edit">Kirim</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+@endforeach
+
 @endsection
 
 @section('script')
