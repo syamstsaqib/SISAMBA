@@ -78,6 +78,4 @@
     {!! Form::password('password',['class'=>'form-control'.(($errors->has('password'))?" border-danger":""),'id'=>'floatingPassword','placeholder'=>'Password']) !!}
     <label for="floatingPassword">Password</label>
   </div>
-
-
 </div>

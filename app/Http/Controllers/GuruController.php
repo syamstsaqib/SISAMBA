@@ -130,8 +130,6 @@ class GuruController extends Controller
      */
     public function create()
     {
-
-
         return view('admin.guru.tambahguru', [
             'nomor_induk' => User::pluck('nomor_induk', 'id')
         ]);

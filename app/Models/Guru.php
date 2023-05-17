@@ -11,23 +11,34 @@ class Guru extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    // add nip get attribute from user model nomor_induk
+    // public function getNipAttribute()
+    // {
+    //     return $this->user->nomor_induk;
+    // }
 
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
-    public function tugas(){
+    public function tugas()
+    {
         return $this->hasMany(Tugas::class);
     }
-    public function absen(){
+    public function absen()
+    {
         return $this->hasMany(Absensi::class);
     }
-    public function mapel(){
+    public function mapel()
+    {
         return $this->hasMany(Mapel::class);
     }
-    public function kelas(){
+    public function kelas()
+    {
         return $this->hasMany(Kelas::class);
     }
-    public function nilai(){
+    public function nilai()
+    {
         return $this->hasMany(Nilai::class);
     }
 }

@@ -60,7 +60,7 @@
                   </th>
                   <td>{{$dt->nisn}}</td>
                   <td>{{$dt->user->nama ?? 'ini nama'}}</td>
-                  <td>{{$dt->kelas->tingkat_kelas ?? ''}}</td> 
+                  <td>{{$dt->kelas->kelas ?? ''}}</td> 
                   <!-- pakai ?? dan '' kalau panggil relasi dan tidak ketemu -->
                   <td>
                     <div class="d-flex justify-content-evenly">

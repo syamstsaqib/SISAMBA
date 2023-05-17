@@ -62,8 +62,16 @@ class WalisiswaController extends Controller
      */
     public function create()
     {
+        $kelas = Kelas::all();
+        $dtk = [];
+        foreach ($kelas as $k) {
+            $dtk[$k->id] = $k->kelas . ' - ' . $k->kode_kelas;
+        }
+        // return $dtk;
+        // return Kelas::pluck('kelas', 'id');
         return view('admin.siswa.tambahsiswa', [
-            'dtkelas' => Kelas::pluck('tingkat_kelas', 'id'),
+            // 'dtkelas' => Kelas::pluck('kelas', 'id'),
+            'dtkelas' => $dtk,
             'nomor_induk' => User::pluck('nomor_induk', 'id')
         ]);
     }

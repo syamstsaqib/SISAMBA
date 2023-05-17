@@ -54,7 +54,7 @@ class SuperAdminController extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(404);
     }
 
     /**

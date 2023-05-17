@@ -15,11 +15,9 @@ class CreateKelasTable extends Migration
     {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tahun_ajaran_id');
-            $table->foreignId('guru_id');
-            $table->string('tingkat_kelas');
+            $table->string('kelas');
             $table->string('kode_kelas');
-            $table->string('semester');
+            $table->string('walikelas');
             $table->timestamps();
         });
     }

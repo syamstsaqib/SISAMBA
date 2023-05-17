@@ -16,9 +16,10 @@ class CreateMapelsTable extends Migration
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
             $table->foreignId('guru_id');
-            $table->foreignId('tahun_ajaran_id');
+            $table->foreignId('tahun_ajaran_id')->nullable();
             $table->string('mapel');
             $table->integer('kkm');
+            $table->string('semester');
             $table->timestamps();
         });
     }

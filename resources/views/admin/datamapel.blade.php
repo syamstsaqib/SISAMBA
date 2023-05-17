@@ -1,21 +1,20 @@
 @extends('layouts.app')
 
-
 @section('style')
   @include('layouts.style')
 @endsection
 
 @section('content')
 <main id="main" class="main">
-    <div class="pagetitle">
-      <h1>Data Mata Pelajaran</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Menu</a></li>
-          <li class="breadcrumb-item active">Data Mapel</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+  <div class="pagetitle">
+    <h1>Data Mata Pelajaran</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Menu</a></li>
+        <li class="breadcrumb-item active">Data Mapel</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
   
   <section class="section">
     <div class="row">
@@ -41,7 +40,8 @@
                   <th scope="col">Mata Pelajaran</th>
                   <th scope="col">Jurusan</th>
                   <th scope="col">Nilai KKM</th>
-                  <th scope="col" class="text-center">Guru Pengampu</th>
+                  <th scope="col">Guru Pengampu</th>
+                  <th scope="col">Semester</th>
                   <th scope="col" class="text-center">Aksi</th>
                 </tr>
               </thead>
@@ -51,10 +51,9 @@
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
+                  <td></td>
                   <td>
-                                 
-                  </td>
-                  <td >
                     <div class="d-flex justify-content-lg-evenly"> 
                       <div data-bs-toggle="modal" data-bs-target="#editpengampu">
                         <button class="btn btn-sm btn-info text-white edit-pengampu" pengampu-id = ""  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pengampu"><i class="fas fa-address-book"></i></button>
@@ -63,12 +62,9 @@
                       {!! Form::open(['url' => '/admin/datamapel/', 'method' => 'delete']) !!}
                       <button type="button" class="btn btn-sm btn-danger hapus-mapel" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Mapel"><i class="fas fa-trash-alt"></i></button>
                       {!! Form::close() !!}
-
                     </div>
                   </td>
                 </tr>
-                
-               
               </tbody>
             </table>
           </div>
@@ -90,11 +86,9 @@
           @csrf
           @method('put')
           <div id="pengampu">
-
           </div>
         <div class="text-center">
           <button class="btn btn-primary tambah-pengampu" type="button"><i class="fas fa-plus"></i> Tambah Pengampu</button>
-
         </div>
       </div>
       <div class="modal-footer">

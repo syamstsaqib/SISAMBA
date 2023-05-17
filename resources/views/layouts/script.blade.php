@@ -18,13 +18,10 @@
 <script>
   $(document).ready(function() {
     $('.js-example-basic-single1').select2({
-      placeholder:'pilih kelas..',
       allowClear: true
     });
     $('.js-example-basic-single2').select2({
-      placeholder:'pilih jurusan..',
       allowClear: true
-      
     });
 });
 </script>

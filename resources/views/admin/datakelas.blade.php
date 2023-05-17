@@ -31,7 +31,9 @@
             @endif
             <div class="d-flex justify-content-md-between p-2">
               <h5 class="card-title">Data Kelas</h5>
-              {{-- <a href="/admin/datakelas/create" class="btn btn-primary"> <i class="fas fa-user-plus"></i> Tambah Jurusan</a> --}}
+              <a href="/admin/datakelas/create" class="btn btn-primary"> 
+                <i class="fas fa-plus-circle"></i>
+                Tambah Kelas</a>
             </div>
             <!-- Table with stripped rows -->
             <table class="table datatable">
@@ -39,17 +41,27 @@
                 <tr>
                   <th scope="col">Kelas</th>
                   <th scope="col">Jumlah siswa</th>
-                  <th scope="col" style="text-align: center">Wali kelas</th>
+                  <th scope="col">Wali kelas</th>
                   <th scope="col" style="text-align: center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach($dtkelas as $dt)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td align="center"></td>
-                  <td align="center"><button kelas-id="" data-bs-toggle="modal" data-bs-target="#editpengampu" class="btn btn-warning text-white edit-wali"> Edit Walikelas</button></td>
+                  <td>{{ $dt->kelas }} - {{ $dt->kode_kelas }}</td>
+                  <td>{{ $dt->siswa->count() }}</td>
+                  <td>{{ $dt->dataWalikelas->user->nama }}</td>
+                  <td align="center">
+                    <div class="d-flex justify-content-lg-evenly">
+                      <button kelas-id="" data-bs-toggle="modal" data-bs-target="#editpengampu" class="btn btn-sm btn-warning text-white edit-wali"><i class="fas fa-user-edit"></i></button>
+                      {{-- <a href="/admin/dataguru/{{$dt->id}}/edit" class="text-white btn btn-sm btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Guru"></a> --}}
+                      {!! Form::open(['url' => '/admin/dataguru/'.$dt->id , 'method' => 'delete']) !!}
+                      <button type="button" class="btn btn-sm btn-danger hapus_guru" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Guru"><i class="fas fa-trash-alt"></i></button>
+                      {!! Form::close() !!}
+                    </div>
+                  </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

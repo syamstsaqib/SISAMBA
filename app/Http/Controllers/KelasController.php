@@ -15,7 +15,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('admin.datakelas',[
+        return view('admin.datakelas', [
             'dtkelas' => Kelas::all(),
         ]);
     }
@@ -27,7 +27,13 @@ class KelasController extends Controller
      */
     public function create()
     {
-    
+        $kelas =  [
+            "1", "2", "3", "4", "5", "6"
+        ];
+        return view('admin.kelas.tambahkelas', [
+            'kelas' => $kelas,
+            'walikelas' => Guru::join('users', 'users.id', '=', 'gurus.user_id')->select('users.nama', 'gurus.id')->pluck('nama', 'id'),
+        ]);
     }
 
     /**
@@ -38,7 +44,12 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        
+        Kelas::create([
+            'kelas' => $request->kelas,
+            'kode_kelas' => $request->kode_kelas,
+            'walikelas' => $request->walikelas,
+        ]);
+        return redirect('/admin/datakelas')->with('success', 'Data Kelas Berhasil Ditambah');
     }
 
     /**
@@ -49,24 +60,24 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        $idguru = Guru::join('users','users.id','=','gurus.user_id')->select('users.name','gurus.id')->pluck('name','id');
-        $dtkelas = Kelas::where('guru_id','!=',"null")->get();
+        $idguru = Guru::join('users', 'users.id', '=', 'gurus.user_id')->select('users.name', 'gurus.id')->pluck('name', 'id');
+        $dtkelas = Kelas::where('guru_id', '!=', "null")->get();
         $dtguru = Guru::all();
-        foreach($dtkelas as $kelas){
-            foreach($dtguru as $guru){
-                if($guru->id == $kelas->guru_id){
+        foreach ($dtkelas as $kelas) {
+            foreach ($dtguru as $guru) {
+                if ($guru->id == $kelas->guru_id) {
                     unset($idguru[$guru->id]);
                 }
             }
         }
         $walicurrent = Kelas::find($id);
-        foreach($dtkelas as $kelas){
+        foreach ($dtkelas as $kelas) {
             if ($kelas->guru_id == $walicurrent->guru_id) {
                 $idguru[$walicurrent->guru_id] = $walicurrent->guru->user->name;
             }
         }
-        
-        return view('admin.walikelas',[
+
+        return view('admin.walikelas', [
             'guru' => $idguru,
             'wali' => $walicurrent
         ]);
@@ -90,10 +101,10 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$kelas)
+    public function update(Request $request, $kelas)
     {
         Kelas::find($kelas)->update($request->all());
-        return redirect('/admin/datakelas')->with('success','Wali kelas Berhasil diedit');
+        return redirect('/admin/datakelas')->with('success', 'Wali kelas Berhasil diedit');
     }
 
     /**

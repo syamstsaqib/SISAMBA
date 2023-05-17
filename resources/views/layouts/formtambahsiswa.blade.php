@@ -8,7 +8,7 @@
   <div class="row mb-3">
     <label for="inputNumber" class="col-form-label">Foto Profil</label>
     <div class="col-sm-12">
-      {!! Form::file('foto',['class'=>'form-control','id'=>'formFile']); !!}
+      {!! Form::file('foto',['class'=>'form-control','id'=>'formFile', 'accept' => 'image/*']); !!}
     </div>
   </div>
 </div>
@@ -57,7 +57,6 @@
 </div>
 <div class="col-md-6">
   <div class="col-md-12">
-
     <label for="Kelas" class="form-label">Kelas</label>
     {!! Form::select('kelas_id',$dtkelas,null,['placeholder' => 'Pilih kelas..','class'=>"form-select js-example-basic-single1" , 'id'=>"Kelas"]) !!}
   </div>
