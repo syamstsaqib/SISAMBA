@@ -18,10 +18,10 @@
 <script>
   $(document).ready(function() {
     $('.js-example-basic-single1').select2({
-      allowClear: true
+      // allowClear: true
     });
     $('.js-example-basic-single2').select2({
-      allowClear: true
+      // allowClear: true
     });
 });
 </script>

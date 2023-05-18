@@ -119,6 +119,7 @@ class KelasController extends Controller
      */
     public function destroy(Kelas $kelas)
     {
-        //
+        $kelas->delete();
+        return redirect('/admin/datakelas')->with('success', 'Data Kelas Berhasil Dihapus');
     }
 }

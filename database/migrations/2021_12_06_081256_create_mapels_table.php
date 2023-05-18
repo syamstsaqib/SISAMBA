@@ -19,7 +19,7 @@ class CreateMapelsTable extends Migration
             $table->foreignId('tahun_ajaran_id')->nullable();
             $table->string('mapel');
             $table->integer('kkm');
-            $table->string('semester');
+            $table->string('semester')->nullable();
             $table->timestamps();
         });
     }

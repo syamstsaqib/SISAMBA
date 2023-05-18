@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'roles:Admin|SuperAdmin'], 'prefix' => 'a
 
     Route::get('/datakelas', [KelasController::class, 'index']);
     Route::put('/datakelas/update/{kelas}', [KelasController::class, 'update']);
+    Route::delete('/datakelas/delete/{kelas}', [KelasController::class, 'destroy']);
 
     Route::resource('/datamapel', MapelController::class);
 

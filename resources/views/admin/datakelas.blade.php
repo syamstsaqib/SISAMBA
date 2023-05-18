@@ -55,8 +55,8 @@
                     <div class="d-flex justify-content-lg-evenly">
                       <button kelas-id="" data-bs-toggle="modal" data-bs-target="#editpengampu-{{ $dt->id }}" class="btn btn-sm btn-warning text-white edit-wali"><i class="fas fa-user-edit"></i></button>
                       {{-- <a href="/admin/dataguru/{{$dt->id}}/edit" class="text-white btn btn-sm btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Guru"></a> --}}
-                      {!! Form::open(['url' => '/admin/datakelas/'.$dt->id , 'method' => 'delete']) !!}
-                      <button type="button" class="btn btn-sm btn-danger hapus_guru" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Guru"><i class="fas fa-trash-alt"></i></button>
+                      {!! Form::open(['url' => '/admin/datakelas/delete/'.$dt->id , 'method' => 'delete']) !!}
+                      <button type="submit" class="btn btn-sm btn-danger hapus_guru" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Guru"><i class="fas fa-trash-alt"></i></button>
                       {!! Form::close() !!}
                     </div>
                   </td>

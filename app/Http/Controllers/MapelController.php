@@ -18,8 +18,8 @@ class MapelController extends Controller
 
     public function tambahpengampu()
     {
-        return view('layouts.editpengampu',[
-            'guru'=>Guru::join('users', 'users.id', '=', 'gurus.user_id')->pluck('users.name','gurus.id')
+        return view('layouts.editpengampu', [
+            'guru' => Guru::join('users', 'users.id', '=', 'gurus.user_id')->pluck('users.name', 'gurus.id')
         ]);
     }
 
@@ -39,8 +39,9 @@ class MapelController extends Controller
         // return view('');
     }
 
-    public function inputpengampu(Request $request,$id){
-        
+    public function inputpengampu(Request $request, $id)
+    {
+
         // GuruMapel::where('mapel_id',$id)->delete();
         // $bts = 0;
         // foreach($request->input() as $v){
@@ -58,8 +59,7 @@ class MapelController extends Controller
         //         }
         //     }
         // }
-        return redirect('/admin/datamapel')->with('success','Pengampu berhasil di edit');
-
+        return redirect('/admin/datamapel')->with('success', 'Pengampu berhasil di edit');
     }
     /**
      * Display a listing of the resource.
@@ -68,10 +68,8 @@ class MapelController extends Controller
      */
     public function index()
     {
-        return view('admin.datamapel',[
-            'dtmapel' => Mapel::with('gurumapel','jurusan')->latest()->get(),
-            // 'dtpengampu' => GuruMapel::all()
-        ]);
+        $dtMapel = Mapel::with('guru')->get();
+        return view('admin.datamapel', compact('dtMapel'));
     }
 
     /**
@@ -81,7 +79,9 @@ class MapelController extends Controller
      */
     public function create()
     {
-        return view('admin.mapel.tambahmapel');
+        // get guru where belum memiliki mapel
+        $dtguru = Guru::join("users", 'users.id', '=', 'gurus.user_id')->pluck('users.nama', 'gurus.id');
+        return view('admin.mapel.tambahmapel', compact('dtguru'));
     }
 
     /**
@@ -92,40 +92,12 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        $validateMapel = $request->validate([
-            'nama_mapel' => 'required',
-            'kkm' => 'required'
+        Mapel::create([
+            "guru_id" => $request->guru_id,
+            'mapel' => $request->nama_mapel,
+            'kkm' => $request->KKM
         ]);
-        // DB::beginTransaction();
-        // try{
-
-        //     $idmapel = Mapel::create($validateMapel);
-            // $dtsiswa = SiswaKelas::join('kelas_jurusans','kelas_jurusans.id','=','siswa_kelas.kelas_jurusan_id')
-            //           ->where('kelas_jurusans.jurusan_id',$request->jurusan_id)
-            //           ->select('siswa_kelas.id','siswa_kelas.kelas_jurusan_id')
-            //           ->get();
-            // dd($dtsiswa);
-            // foreach($dtsiswa as $siswa){
-            //     Nilai::create([
-            //         'siswakelas_id' => $siswa->id,
-            //         'mapel_id' => $idmapel->id,
-            //         'Semester' => 1
-            //     ]);
-            // }
-            // foreach($dtsiswa as $siswa){
-            //     Nilai::create([
-            //         'siswakelas_id' => $siswa->id,
-            //         'mapel_id' => $idmapel->id,
-            //         'Semester' => 2
-            //     ]);
-            // }
-        //     DB::commit();
-        //     return redirect('/admin/datamapel')->with('success','Data Mapel Berhasil Ditambah');
-        // }catch(\Exception $e){
-        //     DB::rollBack();
-        //     dd($e->getMessage());
-        //     return back()->withInput();
-        // }
+        return redirect('/admin/datamapel')->with('success', 'Data Mapel Berhasil Ditambah');
     }
 
     /**
@@ -147,7 +119,7 @@ class MapelController extends Controller
      */
     public function edit($mapel)
     {
-        return view('admin.mapel.editmapel',[
+        return view('admin.mapel.editmapel', [
             'mapel' => Mapel::find($mapel),
             // 'dtjurusan' => Jurusan::pluck('nama_jurusan','id')
         ]);
@@ -160,7 +132,7 @@ class MapelController extends Controller
      * @param  \App\Models\Mapel  $mapel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$mapel)
+    public function update(Request $request, $mapel)
     {
         $dtOldMapel = Mapel::find($mapel);
         DB::beginTransaction();
@@ -174,7 +146,7 @@ class MapelController extends Controller
             $dtOldMapel->update($validateMapel);
 
             DB::commit();
-            return redirect('/admin/datamapel')->with('success','Data Mapel Berhasil Diedit');
+            return redirect('/admin/datamapel')->with('success', 'Data Mapel Berhasil Diedit');
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -190,9 +162,9 @@ class MapelController extends Controller
      */
     public function destroy($mapel)
     {
-        Nilai::where('mapel_id',$mapel)->delete();
+        Nilai::where('mapel_id', $mapel)->delete();
         // GuruMapel::where('mapel_id',$mapel)->update(['mapel_id' => null]);
         Mapel::destroy($mapel);
-        return redirect('/admin/datamapel')->with('success','Data Mapel Berhasil Dihapus');
+        return redirect('/admin/datamapel')->with('success', 'Data Mapel Berhasil Dihapus');
     }
 }

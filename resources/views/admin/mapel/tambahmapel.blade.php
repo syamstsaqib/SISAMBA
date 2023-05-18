@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-body">
               <h5 class="card-title">Tambah Mata pelajaran</h5>
-              {!! Form::open(['url' => '/admin/datamapel', 'method'=>'post','files' => true, 'class'=>'row g-3','novalidate']) !!}
+              {!! Form::open(['url' => '/admin/datamapel', 'method'=>'post','files' => true, 'class'=>'row g-3']) !!}
                @include('layouts.formtambahmapel')
                 <div class="text-left">
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -38,21 +38,18 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Mata Pelajaran</th>
-                  <th scope="col">Jurusan</th>
                   <th scope="col">Nilai KKM</th>
                   <th scope="col">Guru Pengampu</th>
-                  <th scope="col">Semester</th>
                   <th scope="col" class="text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($dtMapel as $mapel)
                 <tr>
-                  <th scope="row"></th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ $mapel->mapel }}</td>
+                  <td>{{ $mapel->kkm }}</td>
+                  <td>{{ $mapel->guru->user->nama }}</td>
                   <td>
                     <div class="d-flex justify-content-lg-evenly"> 
                       <div data-bs-toggle="modal" data-bs-target="#editpengampu">
@@ -65,6 +62,7 @@
                     </div>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -103,5 +101,5 @@
 
 @section('script')
     @include('layouts.script')
-    <script src="{{ asset('js/datamapel.js') }}"></script>
+    {{-- <script src="{{ asset('js/datamapel.js') }}"></script> --}}
 @endsection
