@@ -35,7 +35,8 @@ class GuruController extends Controller
 
     public function profile()
     {
-        return view('guru.profile');
+        $user = Guru::where('user_id', Auth::user()->id)->first();
+        return view('guru.profile', compact('user'));
     }
 
     public function profile_edit(Request $request, $id)
@@ -44,16 +45,16 @@ class GuruController extends Controller
         DB::beginTransaction();
         try {
             if ($request->hasFile('foto')) {
-                if ($olddata->foto != 'foto_profil_guru/defaultprofile.jpg') {
+                if ($olddata->foto != 'foto_guru/defaultprofile.jpg') {
                     Storage::delete($olddata->foto);
                 }
-
                 $olddata->update([
-                    'foto' => $request->file('foto')->store('foto_profil_guru'),
+                    'foto' => $request->file('foto')->getClientOriginalName(),
                 ]);
+                $request->file('foto')->storeAs('public/foto_guru/', $request->file('foto')->getClientOriginalName());
             }
             $olddata->user->update([
-                'name' => $request->name
+                'nama' => $request->nama
             ]);
             $olddata->update([
                 'tempat_lahir' => $request->tempat_lahir,

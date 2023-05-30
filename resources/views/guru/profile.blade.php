@@ -25,7 +25,7 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="" alt="" class="rounded-circle">
+              <img src="{{ asset("storage/foto_guru/" . $user->foto) }}" alt="Foto Guru" class="rounded-circle">
               <h2></h2>
               <h3></h3>
             </div>
@@ -61,106 +61,104 @@
                     
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label ">Wali Kelas</div>
-                      <div class="col-lg-8 col-md-7" id="walikelas"></div>
+                      <div class="col-lg-8 col-md-7" id="walikelas">{{ $user->walikelas->kelas ?? "" }} - {{ $user->walikelas->kode_kelas ?? "" }}</div>
                     </div>
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label ">NIP</div>
-                      <div class="col-lg-8 col-md-7" id="NIP"></div>
+                      <div class="col-lg-8 col-md-7" id="NIP">{{ $user->nip }}</div>
                     </div>
 
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label ">Nama Lengkap</div>
-                      <div class="col-lg-8 col-md-7" id="nama_lengkap"></div>
+                      <div class="col-lg-8 col-md-7" id="nama_lengkap">{{ $user->user->nama }}</div>
                     </div>
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label">Pengampu Mapel</div>
                       <div class="col-lg-8 col-md-7" id="pengampu">
-                  
+                        @foreach ($user->mapel as $mapel)
+                            {{ $mapel->mapel }}@if (!$loop->last), @endif
+                        @endforeach
                       </div>
                     </div>
           
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label">Tempat/Tanggal Lahir</div>
-                      <div class="col-lg-8 col-md-7" id="TTL"></div>
+                      <div class="col-lg-8 col-md-7" id="TTL">{{ $user->tempat_lahir }}, {{ $user->tgl_lahir }}</div>
                     </div>
           
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label">Jenis Kelamin</div>
-                      <div class="col-lg-8 col-md-7" id="J_kelamin"></div>
+                      <div class="col-lg-8 col-md-7" id="J_kelamin">{{ $user->jenis_kelamin }}</div>
                     </div>
           
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label">Alamat</div>
-                      <div class="col-lg-8 col-md-7" id="alamat"></div>
+                      <div class="col-lg-8 col-md-7" id="alamat">{{ $user->alamat }}</div>
                     </div>
           
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label">Email</div>
-                      <div class="col-lg-8 col-md-7" id="email"></div>
+                      <div class="col-lg-8 col-md-7" id="email">{{ $user->user->email }}</div>
                     </div>
-          
-
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                <!-- Profile Edit Form -->
-                <div class="row mb-3">
+                  <form action="/guru/editprofile/{{ $user->id }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <!-- Profile Edit Form -->
+                    <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Guru</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="" alt="" class="img-preview">
                         <div class="pt-2">
-                          <input type="file" id="foto-profile" style="display:none;" name="foto" onchange="previewImage()">
+                          <input type="file" id="foto-profile" accept="image/*" style="display:none;" name="foto" onchange="previewImage()">
                           <label for="foto-profile" class="btn btn-primary btn-sm">
                               <i class="bi bi-upload text-white" ></i>
                           </label>
                         </div>
                       </div>
                     </div>
-
-                    
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nama Lengkap</label>
                       <div class="col-md-8 col-lg-9">
+                        <input name="nama" type="text" class="form-control" id="fullName" value="{{ $user->user->nama }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Job" class="col-md-4 col-lg-3 col-form-label">Tempat Lahir</label>
                       <div class="col-md-8 col-lg-9">
+                        <input name="tempat_lahir" type="text" class="form-control" id="Job" value="{{ $user->tempat_lahir }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Tanggal Lahir</label>
                       <div class="col-md-8 col-lg-9">
+                        <input name="tgl_lahir" type="date" class="form-control" id="Country" value="{{ $user->tgl_lahir }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="jenis_kelamin" class="col-md-4 col-lg-3 col-form-label">Jenis kelamin</label>
-                      <div class="col-md-8 col-lg-9" style="display: contents">
-                        <div class="form-check">
-                            <label class="form-check-label" for="jenis_kelamin1">
-                                Laki-Laki
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="jenis_kelamin2">
-                                Perempuan
-                            </label>
-                        </div>     
+                      <div class="col-md-8 col-lg-9">
+                        <select name="jenis_kelamin" class="form-select" id="jenis_kelamin">
+                          <option value="Laki-laki" @if ($user->jenis_kelamin == "Laki-laki") selected @endif>Laki-laki</option>
+                          <option value="Perempuan" @if ($user->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option>
+                        </select>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="alamat" class="col-md-4 col-lg-3 col-form-label">Alamat</label>
                       <div class="col-md-8 col-lg-9">
+                        <textarea name="alamat" class="form-control" id="alamat" rows="5">{{ $user->alamat }}</textarea>
                       </div>
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
+                  </form><!-- End Profile Edit Form -->
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">

@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth', 'roles:Admin|SuperAdmin'], 'prefix' => 'a
     Route::resource('/datasiswa', WalisiswaController::class);
     Route::resource('/dataguru', GuruController::class);
 
+    Route::resource('/datakelas', KelasController::class);
     Route::get('/datakelas', [KelasController::class, 'index']);
     Route::put('/datakelas/update/{kelas}', [KelasController::class, 'update']);
     Route::delete('/datakelas/delete/{kelas}', [KelasController::class, 'destroy']);

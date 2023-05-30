@@ -17,13 +17,22 @@ class GuruSeeder extends Seeder
         Guru::insert([
             [
                 'user_id' => 2,
-                'foto' =>'PORBIKAWA.png',
-                'nip' =>'10181069',
+                'foto' => 'PORBIKAWA.png',
+                'nip' => '10181069',
                 'tempat_lahir' => 'Sinjai',
                 'tgl_lahir' => '2002-01-19',
                 'jenis_kelamin' => 'Perempuan',
                 'alamat' => 'jl.banana'
-            ], 
+            ],
+            [
+                'user_id' => 3,
+                'foto' => 'PORBIKAWA.png',
+                'nip' => '10181069',
+                'tempat_lahir' => 'Sinjai',
+                'tgl_lahir' => '2002-01-19',
+                'jenis_kelamin' => 'Perempuan',
+                'alamat' => 'jl.banana'
+            ],
         ]);
     }
 }
