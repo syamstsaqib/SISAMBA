@@ -25,131 +25,26 @@
   
   <section class="section">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-md-between p-2">
-              <h5 class="card-title">Data Siswa</h5>
-            </div>
-            <!-- Table with stripped rows -->
-            <table class="table datatable">
-              <thead>
-                <tr>
-                  <th scope="col">Foto</th>
-                  <th scope="col">NISN</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Kelas</th>
-                  <th scope="col">Jurusan</th>
-                  <th scope="col" class="text-center">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-               
-                <tr>
-                  <th scope="row">
-                    <img src="" alt="" class="img-fluid foto-siswa">  
-                  </th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <div class="d-flex justify-content-evenly">
-                      <div data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <button class="btn btn-sm btn-secondary detail_siswa" data-id ="" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Siswa" ><i class="fas fa-info-circle"></i></button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                
-                
-              </tbody>
-            </table>
+      @if($guru->walikelas)
+      <div class="col-lg-4">
+        <div class="card text-center">
+          <div class="card-body p-0 m-0">
+            <a href="/guru/datasiswa/kelas/{{ $guru->walikelas->id }}"><h4 class="p-5 card-title">Kelas {{ $guru->walikelas->kelas }} - {{ $guru->walikelas->kode_kelas }}</h4></a>
           </div>
         </div>
       </div>
+      @else
+      <div class="col-lg-12">
+        <div class="card text-center">
+          <div class="card-body p-0 m-0">
+            <h4 class="p-5 card-title">Anda Belum Menjadi Wali Kelas</h4>
+          </div>
+        </div>
+      </div>
+      @endif
     </div>
   </section>
 </main>
-<!-- Modal -->
-<section class="profile">
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail siswa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="card">
-          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-            <img src="" alt="Profile" id="foto" class="rounded-circle">
-            <h2 id="nama_siswa">Aprilia</h2>
-            <h5>Siswa</h5>
-            
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body pt-3">
-            <!-- Bordered Tabs -->
-            <div class="tab-content pt-2">
-
-              <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                <h5 class="card-title">Profile Details</h5>
-
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label ">NISN</div>
-                  <div class="col-lg-8 col-md-7" id="NISN">1234</div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label ">Nama Lengkap</div>
-                  <div class="col-lg-8 col-md-7" id="nama_lengkap">Kevin Anderson</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label">Kelas</div>
-                  <div class="col-lg-8 col-md-7" id="kelas">Lueilwitz, Wisoky and Leuschke</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label">TTL</div>
-                  <div class="col-lg-8 col-md-7" id="TTL">USA</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label">Jenis Kelamin</div>
-                  <div class="col-lg-8 col-md-7" id="J_kelamin">Laki</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label">Alamat</div>
-                  <div class="col-lg-8 col-md-7" id="alamat">(436) 486-3538 x29071</div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label">Nama Wali</div>
-                  <div class="col-lg-8 col-md-7" id="nama_wali"></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-4 col-md-5 label">Email</div>
-                  <div class="col-lg-8 col-md-7" id="email">k.anderson@example.com</div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
 @endsection
 
 @section('script')

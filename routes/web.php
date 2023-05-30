@@ -62,7 +62,8 @@ Route::group(['middleware' => ['auth', 'role:Guru'], 'prefix' => 'guru'], functi
     Route::put('/editprofile/{id}', [GuruController::class, 'profile_edit']);
     Route::post('/changePassword', [GuruController::class, 'changePassword']);
     Route::get('/datasiswa', [GuruController::class, 'showsiswa']);
-    Route::get('/datasiswa/{id}', [GuruController::class, 'detailsiswa']);
+    // Route::get('/datasiswa/{id}', [GuruController::class, 'detailsiswa']);
+    Route::get('/datasiswa/kelas/{kelas}', [GuruController::class, 'detailsiswa']);
 
     Route::resource('/absensi', AbsensiController::class);
     Route::POST('/pertemuan', [AbsensiController::class, 'pertemuan']);

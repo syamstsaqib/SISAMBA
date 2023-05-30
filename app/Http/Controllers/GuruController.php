@@ -92,9 +92,14 @@ class GuruController extends Controller
 
     public function showsiswa()
     {
-        return view('guru.datasiswa', [
-            // 'dtsiswa' => SiswaKelas::with('siswa','kelas_jurusan')->latest()->get(),
-        ]);
+        $guru = Guru::where('user_id', Auth::user()->id)->first();
+        return view('guru.datasiswa', compact('guru'));
+    }
+
+    public function detailsiswa($kelas)
+    {
+        $siswa = Siswa::where('kelas_id', $kelas)->get();
+        return view('guru.datasiswa-detail', compact('siswa'));
     }
 
     // public function detailsiswa($siswa){

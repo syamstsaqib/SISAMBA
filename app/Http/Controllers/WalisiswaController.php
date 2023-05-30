@@ -172,7 +172,6 @@ class WalisiswaController extends Controller
     {
 
         $dts = Siswa::with('kelas', 'user')->find($siswa); //kalau sudah didalam modal tidak perlu pakai nama modal lagi dibawahnya
-        // return $dts;
         $dtsiswa = [
             'foto' => $dts->foto,
             'nisn' => $dts->nisn,
@@ -182,14 +181,19 @@ class WalisiswaController extends Controller
             'tgl_lahir' => $dts->tgl_lahir,
             'jenis_kelamin' => $dts->jenis_kelamin,
             'alamat' => $dts->alamat,
-            'kelas_id' => $dts->kelas->id,
+            'kelas_id' => $dts->kelas->id ?? null,
             'nama_wali' => $dts->nama_wali,
             'email' => $dts->user->email
         ];
+        $kelas = Kelas::all();
+        $dtk = [];
+        foreach ($kelas as $k) {
+            $dtk[$k->id] = $k->kelas . ' - ' . $k->kode_kelas;
+        }
         return view('admin.siswa.editsiswa', [
             'dts' => $dts,
             'dtsiswa' => $dtsiswa,
-            'dtkelas' => Kelas::pluck('tingkat_kelas', 'id'),
+            'dtkelas' => $dtk,
         ]);
     }
 
