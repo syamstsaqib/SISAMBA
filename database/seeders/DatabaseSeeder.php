@@ -53,6 +53,14 @@ class DatabaseSeeder extends Seeder
             'role' => 'WaliSiswa'
         ]);
 
+        User::create([
+            'nama' => 'Siswa',
+            'email' => 'siswa1@gmail.com',
+            'nomor_induk' => '22222222',
+            'password' => Hash::make('12345'),
+            'role' => 'Siswa',
+        ]);
+
         // User::create([
         //     'name'=>'Guru',
         //     'email' => 'guru@gmail.com',

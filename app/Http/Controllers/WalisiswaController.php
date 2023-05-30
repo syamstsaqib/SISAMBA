@@ -30,20 +30,59 @@ class WalisiswaController extends Controller
         // $user = Auth::user()->siswa;
         // dd($user->siswakelas[0]->id);
         // $siswa = SiswaKelas::find($user->siswakelas->id);
-
-        return view('walisiswa.profile');
+        $siswa = Siswa::with('kelas')->where('user_id', Auth::user()->id)->first();
+        return view('walisiswa.profile', compact('siswa'));
     }
 
     public function editprofile(Request $request, $id)
     {
         $oldsiswa = Siswa::find($id);
-        if ($request->hasFile('foto')) {
-            if ($oldsiswa->foto != 'foto_profil_siswa/defaultprofile.jpg') {
-                Storage::delete($oldsiswa->foto);
+        DB::beginTransaction();
+        try {
+            if ($request->hasFile('foto')) {
+                if ($oldsiswa->foto != 'foto_siswa/defaultprofile.jpg') {
+                    Storage::delete($oldsiswa->foto);
+                }
+                $oldsiswa->update([
+                    'foto' => $request->file('foto')->getClientOriginalName(),
+                ]);
+                $request->file('foto')->storeAs('public/foto_siswa/', $request->file('foto')->getClientOriginalName());
             }
-            $oldsiswa->update(['foto' => $request->file('foto')->store('foto_profil_siswa')]);
+            $oldsiswa->user->update([
+                'nama' => $request->nama
+            ]);
+            $oldsiswa->update([
+                'tempat_lahir' => $request->tempat_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'alamat' => $request->alamat
+            ]);
+
+            DB::commit();
+            return redirect('/siswa/profile');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors($e)->withInput();
         }
-        return redirect('/walisiswa/profile');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+        $userPassword = $user->password;
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required',
+            'renewpassword' => 'required|same:password'
+        ]);
+
+        if (!Hash::check($request->current_password, $userPassword)) {
+            return back()->withErrors(['current_password' => 'Password salah'])->withInput();
+        }
+
+        $user->update(['password' => Hash::make($request->password)]);
+
+        return redirect('/siswa/profile')->with('success', 'Password Berhasil diubah');
     }
 
 

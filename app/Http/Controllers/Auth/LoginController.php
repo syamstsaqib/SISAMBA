@@ -54,9 +54,9 @@ class LoginController extends Controller
             } elseif (Auth()->user()->role == 'Guru') {
                 $request->session()->regenerate();
                 return redirect()->intended('guru/dashboard');
-            } elseif (Auth()->user()->role == 'WaliSiswa') {
+            } elseif (Auth()->user()->role == 'WaliSiswa' || Auth()->user()->role == 'Siswa') {
                 $request->session()->regenerate();
-                return redirect()->intended('walisiswa/dashboard');
+                return redirect()->intended('siswa/dashboard');
             } elseif (Auth()->user()->role == 'SuperAdmin') {
                 $request->session()->regenerate();
                 return redirect()->intended('superadmin/dashboard');

@@ -73,11 +73,11 @@ Route::group(['middleware' => ['auth', 'role:Guru'], 'prefix' => 'guru'], functi
 });
 
 
-Route::group(['middleware' => ['auth', 'role:WaliSiswa'], 'prefix' => 'walisiswa'], function () {
+Route::group(['middleware' => ['auth', 'role:Siswa'], 'prefix' => 'siswa'], function () {
     Route::get('/dashboard', [WalisiswaController::class, 'ShowDsWalisiswa']);
     Route::get('/profile', [WalisiswaController::class, 'showprofile']);
     Route::put('/editprofile/{id}', [WalisiswaController::class, 'editprofile']);
-    Route::post('/changePassword', [GuruController::class, 'changePassword']);
+    Route::post('/changePassword', [WalisiswaController::class, 'changePassword']);
     Route::get('/lihatpresensi', [AbsensiController::class, 'lihatpresensi']);
     Route::get('/lihatnilai', [NilaiController::class, 'lihatnilai']);
     Route::get('/getnilaimapel/{id}', [NilaiController::class, 'nilaimapel']);
