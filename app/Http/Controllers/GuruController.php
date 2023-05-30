@@ -71,25 +71,24 @@ class GuruController extends Controller
         }
     }
 
-    // public function changePassword(Request $request){
-    //     // return $request;
-    //     $user = Auth::user();
-    //     $userPassword = $user->password;
-    //     // dd($request);
-    //     $request->validate([
-    //         'current_password' => 'required',
-    //         'password' => 'required|same:renewpassword',
-    //         'renewpassword' => 'required'
-    //     ]);
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+        $userPassword = $user->password;
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required',
+            'renewpassword' => 'required|same:password'
+        ]);
 
-    //     if (!Hash::check($request->current_password,$userPassword)) {
-    //         return back()->withErrors(['current_password'=>'Password salah'])->withInput();
-    //     }
+        if (!Hash::check($request->current_password, $userPassword)) {
+            return back()->withErrors(['current_password' => 'Password salah'])->withInput();
+        }
 
-    //     $user->update(['password' => Hash::make($request->password)]);
+        $user->update(['password' => Hash::make($request->password)]);
 
-    //     return redirect('/guru/profile')->with('success','Password Berhasil diubah');
-    // }
+        return redirect('/guru/profile')->with('success', 'Password Berhasil diubah');
+    }
 
     public function showsiswa()
     {
