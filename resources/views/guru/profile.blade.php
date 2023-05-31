@@ -75,6 +75,9 @@
                     <div class="row">
                       <div class="col-lg-4 col-md-5 label">Pengampu Mapel</div>
                       <div class="col-lg-8 col-md-7" id="pengampu">
+                        @if ($user->mapel->count() == 0)
+                            -
+                        @endif
                         @foreach ($user->mapel as $mapel)
                             {{ $mapel->mapel }}@if (!$loop->last), @endif
                         @endforeach

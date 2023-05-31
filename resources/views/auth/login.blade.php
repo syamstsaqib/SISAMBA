@@ -40,7 +40,7 @@
   
                     <div class="pt-4 pb-2">
                       <figure class="text-center">
-                        <img src="{{ asset('/storage/PORBIKAWA.png') }}" alt="sma" class="logop">
+                        <img src="{{ asset('img/logo.png') }}" alt="sma" class="logop">
                       </figure>
                       <h5 class="card-title text-center pb-0 fs-4">LOGIN</h5>
                       <p class="text-center small">Masukkan NISN/NIP dan password kamu untuk login</p>

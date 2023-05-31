@@ -19,9 +19,10 @@ class CreateAbsensisTable extends Migration
             $table->foreignId('mapel_id');
             $table->foreignId('kelas_id');
             $table->string('pertemuan');
-            $table->dateTime('waktu');
             $table->boolean('telah_diisi')->default(false);
-            $table->string('keterangan');
+            $table->date('tgl');
+            $table->time('startTime');
+            $table->time('endTime');
             $table->timestamps();
         });
     }

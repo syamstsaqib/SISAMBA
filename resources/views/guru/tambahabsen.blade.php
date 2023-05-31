@@ -25,15 +25,25 @@
               <div class="card-body">
                 <h5 class="card-title">Tambah Absen</h5>
               <div class="row flex-column my-1">
+                <form action="/guru/absensi" method="post">
+                  @csrf
                 <div class="d-flex col-6">
                   <label for="kelas" class="col-sm-5 col-form-label">Kelas </label>
+                  <select name="kelas" id="kelas" class="form-control" required>
+                    <option value="{{ $kelas->id }}">{{ $kelas->kelas }} - {{ $kelas->kode_kelas }}</option>
+                  </select>
                 </div>
                 <div class="d-flex col-6 my-1">
                   <label for="kelas" class="col-sm-5 col-form-label">Mata pelajaran </label>
+                  <select name="mapel" id="mapel" class="form-control" required>
+                    @foreach ($mapel as $mp)
+                      <option value="{{ $mp->id }}">{{ $mp->mapel }}</option>
+                    @endforeach
+                  </select>
                 </div>
                 <div class="d-flex col-6 my-1">
                   <label for="pertemuan" class="col-sm-5 col-form-label">Pertemuan Ke </label>
-                    <input type="number" name="pertemuan" class="form-control" id="pertemuan"  required readonly>
+                    <input type="number" name="pertemuan" class="form-control" id="pertemuan" required>
                 </div>
                 <div class="d-flex col-6 my-1">
                   <label for="inputTime" class="col-sm-5 col-form-label">Waktu</label>
@@ -47,8 +57,10 @@
                       <button type="submit" class="btn btn-primary">Submit</button>
                       <button type="reset" class="btn btn-secondary">Reset</button>
                   </div>
+                </div>
+              </form>
               </div>
-              </div>
+            </div>
           </div>
         </div>
       </div>

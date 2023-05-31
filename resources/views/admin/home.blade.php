@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-body">
                     <figure class="text-center">
-                        <img src="{{ asset('img/Logo.png') }}" height="120" width="100" class="img-fluid mt-3 " alt="Logo SMA">
+                        <img src="{{ asset('img/logo.png') }}" height="120" width="100" class="img-fluid mt-3 " alt="Logo SMA">
                     </figure>
                     <h5 class="text-center card-title mb-0">SMA Negeri 2 Muara Muntai</h5>
                     <p class="text-center">Muara Leka, Muara Muntai, Kabupaten Kutai Kartanegara, Kalimantan Timur 75562</p>
